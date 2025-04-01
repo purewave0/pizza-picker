@@ -1,5 +1,76 @@
+body {
+    font-family: sans-serif;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
 #content {
     background-color: lightcoral;
-    width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
+}
+
+#pizza-picker {
+    display: flex;
+    flex-direction: row;
+    column-gap: 36px;
+}
+
+.picker-column {
+    flex: 1;
+}
+
+
+/* -- sizes -- */
+
+#sizes {
+    display: flex;
+    flex-direction: row;
+    column-gap: 32px;
+}
+
+#sizes li {
+    font-size: 16pt;
+    width: 64px;
+    height: 64px;
+    align-content: center;
+    text-align: center;
+    background-color: white;
+    border-radius: 100%;
+    user-select: none;
+    cursor: pointer;
+}
+
+#pizza-size-info {
+    list-style-type: initial;
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+}
+
+/* -- flavours -- */
+
+#flavours {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+}
+
+.flavour {
+    background-color: white;
+    padding: 8px 36px;
+    border-radius: 48px;
+    user-select: none;
+    cursor: pointer;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
 }

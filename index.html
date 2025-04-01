@@ -14,8 +14,68 @@
 
 <body>
     <div id="content">
-        <canvas id="pizza"></canvas>
+        <div id="pizza-picker">
+            <div id="form" class="picker-column">
+                <div class="form-field">
+                    <h2>Size</h2>
+                    <ul id="sizes">
+                        <li data-size="small">S</li>
+                        <li data-size="medium">M</li>
+                        <li data-size="large">L</li>
+                        <li data-size="extra-large">XL</li>
+                    </ul>
+                    <p id="pizza-size-description">…</p>
+                    <ul id="pizza-size-info">
+                        <li id="pizza-serving">…</li>
+                        <li id="pizza-flavour">…</li>
+                    </ul>
+                </div>
+
+                <div class="form-field">
+                    <h2>Flavours</h2>
+                    <p id="flavour-text">…</p>
+                    <ul id="flavours">
+                        <li class="flavour">
+                            <p>Pepperoni</p>
+                        </li>
+
+                        <li class="flavour">
+                            <p>Buffalo Chicken</p>
+                        </li>
+
+                        <li class="flavour">
+                            <p>Margherita</p>
+                        </li>
+
+                        <li class="flavour">
+                            <p>Cheese</p>
+                        </li>
+
+                        <li class="flavour">
+                            <p>Veggie Supreme</p>
+                        </li>
+
+                        <li class="flavour">
+                            <p>Neapolitan</p>
+                        </li>
+
+                        <li class="flavour">
+                            <p>Sausage</p>
+                        </li>
+
+                        <li class="flavour">
+                            <p>Mushrooms</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="pizza-wrapper" class="picker-column">
+                <canvas id="pizza"></canvas>
+            </div>
+        </div>
     </div>
+
 </body>
 
 </html>
