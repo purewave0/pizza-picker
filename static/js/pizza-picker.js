@@ -4,6 +4,8 @@ class PizzaPicker {
     #slicesAmount;
     #flavours;
 
+    static #COLOR_NO_FLAVOUR_SELECTED = 'rgba(127, 127, 127, 0.7)';
+
     constructor(target) {
         this.#data = {
             datasets: [{
@@ -31,21 +33,28 @@ class PizzaPicker {
     }
 
     setFlavours(flavours) {
+        if (flavours === null) {
+            this.#data.datasets[0].backgroundColor =
+                new Array(this.#slicesAmount)
+                .fill(PizzaPicker.#COLOR_NO_FLAVOUR_SELECTED);
+            this.#chart.update();
+            return;
+        }
+
         if (this.#slicesAmount%flavours.length !== 0) {
             throw new Error(
                 'amount of slices must be a multiple of the amount of flavours'
             );
         }
 
-        this.#data.datasets[0].colors = [];
+        this.#data.datasets[0].backgroundColor = [];
 
         const slicesPerFlavour = this.#slicesAmount / flavours.length;
-        for (const flavor of flavours) {
+        for (const flavour of flavours) {
             for (let j=0; j<slicesPerFlavour; j++) {
-                this.#data.datasets[0].backgroundColor.push(flavor.color);
+                this.#data.datasets[0].backgroundColor.push(flavour);
             }
         }
-        this.#flavours = flavours;
 
         this.#chart.update();
     }

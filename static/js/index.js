@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         currentlySelectedFlavours = [];
         flavoursParent.classList.remove('maxed-out');
+        updatePizzaFlavours([]);
 
         flavourPickerText.textContent = sizeInfo.flavourPickerText;
 
@@ -115,7 +116,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     function updatePizzaFlavours(flavours) {
-        // TODO
+        if (flavours.length === 0) {
+            pizza.setFlavours(null);
+            return;
+        }
+
+        pizza.setFlavours(flavours);
     }
 
     for (const flavour of flavoursParent.children) {
@@ -128,6 +134,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // in case it was maxed out before
                 flavoursParent.classList.remove('maxed-out');
+
+                updatePizzaFlavours(
+                    currentlySelectedFlavours.map(f => f.dataset.color)
+                );
                 return;
             }
 
@@ -154,13 +164,10 @@ document.addEventListener('DOMContentLoaded', () => {
             currentlySelectedFlavours.push(flavour);
             flavour.classList.add('selected');
 
-            updatePizzaFlavours(currentlySelectedFlavours.map(f => f.dataset.flavour));
+            updatePizzaFlavours(currentlySelectedFlavours.map(f => f.dataset.color));
         });
     }
 
     updatePizzaBySize(currentlySelectedSize.dataset.size);
-
-    pizza.setFlavours([
-        {color: '#ffd94d'},
-    ]);
+    updatePizzaFlavours([]);
 });
