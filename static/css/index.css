@@ -45,6 +45,10 @@ ul {
     cursor: pointer;
 }
 
+#sizes li.selected {
+    background-color: lightgreen;
+}
+
 #pizza-size-info {
     list-style-type: initial;
     padding-left: 16px;
