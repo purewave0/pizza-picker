@@ -73,6 +73,17 @@ ul {
     cursor: pointer;
 }
 
+.flavour.selected {
+    background-color: lightgreen;
+}
+
+#flavours.maxed-out .flavour:not(.selected) {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+
+
 #form {
     display: flex;
     flex-direction: column;
