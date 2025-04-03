@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         'veggie-supreme': {
         },
-        'neapolitan': {
+        'quattro-formaggi': {
         },
         'sausage': {
         },
