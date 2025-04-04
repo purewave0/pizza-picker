@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const pizzaElement = document.getElementById('pizza');
     const pizza = new PizzaPicker(pizzaElement);
 
+    const SIZE_PREFERENCE_KEY = 'size';
+    const SIZE_PREFERENCE_DEFAULT = 'medium';
+
     const pizzaSizesInfo = {
         'small': {
             slicesAmount: 4,
@@ -89,12 +92,22 @@ document.addEventListener('DOMContentLoaded', () => {
         pizza.setSliceGapWidth(sizeInfo.sliceGapWidth);
     }
 
+    let sizePreference = localStorage.getItem(SIZE_PREFERENCE_KEY);
+    if (!sizePreference) {
+        localStorage.setItem(SIZE_PREFERENCE_KEY, SIZE_PREFERENCE_DEFAULT);
+        sizePreference = SIZE_PREFERENCE_DEFAULT;
+    }
+
     for (const size of sizesParent.children) {
-        if (size.classList.contains('selected')) {
+        if (size.dataset.size === sizePreference) {
+            size.classList.add('selected');
             currentlySelectedSize = size;
         }
 
         size.addEventListener('click', () => {
+            // save preference
+            localStorage.setItem(SIZE_PREFERENCE_KEY, size.dataset.size);
+
             if (size.classList.contains('selected')) {
                 // nothing to do
                 return;
