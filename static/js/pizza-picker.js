@@ -2,7 +2,6 @@ class PizzaPicker {
     #chart;
     #data;
     #slicesAmount;
-    #flavours;
 
     static #COLOR_NO_FLAVOUR_SELECTED = 'rgba(127, 127, 127, 0.7)';
 
@@ -59,7 +58,7 @@ class PizzaPicker {
         });
     }
 
-    setFlavourTextures(textureUrls, textureSize) {
+    setToppingTextures(textureUrls, textureSize) {
         if (textureUrls === null) {
             this.#data.datasets[0].backgroundColor =
                 new Array(this.#slicesAmount)
@@ -78,9 +77,9 @@ class PizzaPicker {
 
         let textureUpdatePromises = [];
 
-        const slicesPerFlavour = this.#slicesAmount / textureUrls.length;
+        const slicesPerTopping = this.#slicesAmount / textureUrls.length;
         for (const textureUrl of textureUrls) {
-            for (let j=0; j<slicesPerFlavour; j++) {
+            for (let j=0; j<slicesPerTopping; j++) {
                 const promise = PizzaPicker.#createCanvasPatternFromImageUrl(
                     textureUrl, textureSize
                 ).then((canvasPattern) => {

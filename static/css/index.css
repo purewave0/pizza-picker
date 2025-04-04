@@ -73,15 +73,15 @@ ul {
     row-gap: 4px;
 }
 
-/* -- flavours -- */
+/* -- toppings -- */
 
-#flavours {
+#toppings {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4px;
 }
 
-.flavour {
+.topping {
     background-color: white;
     padding: 8px 36px;
     border-radius: 48px;
@@ -89,11 +89,11 @@ ul {
     cursor: pointer;
 }
 
-.flavour.selected {
+.topping.selected {
     background-color: lightgreen;
 }
 
-#flavours.maxed-out .flavour:not(.selected) {
+#toppings.maxed-out .topping:not(.selected) {
     pointer-events: none;
     opacity: 0.7;
 }
