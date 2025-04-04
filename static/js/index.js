@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
             slicesAmount: 4,
             maxToppings: 1,
             description: 'Just the right size for a solo pizza night.',
-            serving: 'Serves 1-2 people',
-            maxToppingsText: 'Single topping',
+            serving: '1-2',
             toppingPickerText: 'Choose a topping:',
             sliceGapWidth: 6,
             textureSize: 450,
@@ -20,8 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             slicesAmount: 6,
             maxToppings: 2,
             description: 'Ideal for sharing with friends.',
-            serving: 'Serves 2-3 people',
-            maxToppingsText: 'Up to 2 toppings',
+            serving: '2-3',
             toppingPickerText: 'Choose up to 2 toppings:',
             sliceGapWidth: 5,
             textureSize: 400,
@@ -30,8 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             slicesAmount: 8,
             maxToppings: 2,
             description: 'Perfect for gatherings and satisfying appetites.',
-            serving: 'Serves 3-4 people',
-            maxToppingsText: 'Up to 2 toppings',
+            serving: '3-4',
             toppingPickerText: 'Choose up to 2 toppings:',
             sliceGapWidth: 4,
             textureSize: 350,
@@ -40,8 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             slicesAmount: 12,
             maxToppings: 3,
             description: 'The ultimate choice for big celebrations.',
-            serving: 'Serves 4-6 people',
-            maxToppingsText: 'Up to 3 toppings',
+            serving: '4-6',
             toppingPickerText: 'Choose up to 3 toppings:',
             sliceGapWidth: 4,
             textureSize: 300,
@@ -56,24 +52,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let maxPizzaToppings = null;
 
     pizzaSizeDescription = document.getElementById('pizza-size-description');
-    pizzaServing = document.getElementById('pizza-serving');
-    pizzaTopping = document.getElementById('pizza-topping');
+    pizzaServingValue = document.getElementById('pizza-serving-value');
+    pizzaMaxToppingsValue = document.getElementById('pizza-topping-value');
     toppingPickerText = document.getElementById('topping-text');
 
     function updatePizzaBySize(size) {
         const sizeInfo = pizzaSizesInfo[size];
 
         pizzaSizeDescription.textContent = sizeInfo.description;
-        pizzaServing.textContent = sizeInfo.serving;
 
-        let toppingInfo = null;
-        if (sizeInfo.maxToppings === 1) {
-            toppingInfo = 'Pick 1 topping.';
-        } else {
-            toppingInfo = `Pick up to ${sizeInfo.maxToppings} toppings.`;
-        }
-        pizzaTopping.textContent = sizeInfo.maxToppingsText;
+        pizzaServingValue.textContent = sizeInfo.serving;
+
         maxPizzaToppings = sizeInfo.maxToppings;
+        pizzaMaxToppingsValue.textContent = sizeInfo.maxToppings;
+
+
+        let toppingText = null;
+        if (sizeInfo.maxToppings === 1) {
+            toppingText = 'Choose a topping:';
+        } else {
+            toppingText = `Choose up to ${sizeInfo.maxToppings} toppings:`;
+        }
+        toppingPickerText.textContent = toppingText;
 
         // reset toppings
         for (const topping of currentlySelectedToppings) {
@@ -82,9 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
         currentlySelectedToppings = [];
         toppingsParent.classList.remove('maxed-out');
         updatePizzaTextures([]);
-
-        toppingPickerText.textContent = sizeInfo.toppingPickerText;
-
 
         pizza.setSlicesAmount(sizeInfo.slicesAmount)
         currentTextureSize = sizeInfo.textureSize;
@@ -178,7 +175,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
     updatePizzaBySize(currentlySelectedSize.dataset.size);
     updatePizzaTextures([]);
+
+    function getFullOrder() {
+        return {
+            size: currentlySelectedSize.dataset.size,
+            toppings: currentlySelectedToppings.map(topping => topping.dataset.topping),
+        }
+    }
+
+    const addToCardButton = document.getElementById('add-to-cart');
+    addToCardButton.addEventListener('click', () => {
+        const hasSelectedTopping = currentlySelectedToppings.length !== 0;
+        if (!hasSelectedTopping) {
+            addToCardButton.setCustomValidity('Please select at least 1 topping.');
+            addToCardButton.reportValidity();
+            return;
+        }
+
+        addToCardButton.setCustomValidity('');
+        const overview = getFullOrder();
+        console.log(overview);
+        alert(JSON.stringify(overview));
+    });
 });

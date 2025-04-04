@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pizza-picker</title>
 
+    <link rel="stylesheet" href="/static/css/fonts.css">
     <link rel="stylesheet" href="/static/css/index.css">
 
     <script src="/static/js/lib/chart.min.js"></script>
@@ -26,8 +27,14 @@
                     </ul>
                     <p id="pizza-size-description">…</p>
                     <ul id="pizza-size-info">
-                        <li id="pizza-serving">…</li>
-                        <li id="pizza-topping">…</li>
+                        <li id="pizza-serving">
+                            <b id="pizza-serving-value">…</b>
+                            <span>people<br>served</span>
+                        </li>
+                        <li id="pizza-topping">
+                            <b id="pizza-topping-value">…</b>
+                            <span>topping(s)<br>max</span>
+                        </li>
                     </ul>
                 </div>
 
@@ -35,36 +42,68 @@
                     <h2>Toppings</h2>
                     <p id="topping-text">…</p>
                     <ul id="toppings">
-                        <li class="topping" data-topping="pepperoni" data-texture-url="/static/img/pepperoni.png">
-                            <p>Pepperoni</p>
+                        <li class="topping" data-topping="pepperoni" data-texture-url="/static/img/toppings/textures/pepperoni.png">
+                            <img src="/static/img/toppings/thumbnails/pepperoni.jpg">
+                            <div class="topping-info">
+                                <h3>Pepperoni</h3>
+                                <p>Pepperoni slices, Mozzarella cheese, Pizza sauce, Oregano</p>
+                            </div>
                         </li>
 
-                        <li class="topping" data-topping="buffalo-chicken" data-texture-url="/static/img/buffalo-chicken.png">
-                            <p>Buffalo Chicken</p>
+                        <li class="topping" data-topping="buffalo-chicken" data-texture-url="/static/img/toppings/textures/buffalo-chicken.png">
+                            <img src="/static/img/toppings/thumbnails/buffalo-chicken.jpg">
+                            <div class="topping-info">
+                                <h3>Buffalo Chicken</h3>
+                                <p>Cooked chicken, Buffalo sauce, Mozzarella cheese, Ranch dressing, Green onions</p>
+                            </div>
                         </li>
 
-                        <li class="topping" data-topping="margherita" data-texture-url="/static/img/margherita.png">
-                            <p>Margherita</p>
+                        <li class="topping" data-topping="margherita" data-texture-url="/static/img/toppings/textures/margherita.png">
+                            <img src="/static/img/toppings/thumbnails/margherita.jpg">
+                            <div class="topping-info">
+                                <h3>Margherita</h3>
+                                <p>Mozzarela cheese, Tomato sauce, Basil leaves, Black pepper</p>
+                            </div>
                         </li>
 
-                        <li class="topping" data-topping="cheese" data-texture-url="/static/img/cheese.png">
-                            <p>Cheese</p>
+                        <li class="topping" data-topping="cheese" data-texture-url="/static/img/toppings/textures/cheese.png">
+                            <img src="/static/img/toppings/thumbnails/cheese.jpg">
+                            <div class="topping-info">
+                                <h3>Cheese</h3>
+                                <p>Mozzarela cheese, Parmesan cheese, Pizza sauce, Italian seasoning</p>
+                            </div>
                         </li>
 
-                        <li class="topping" data-topping="veggie-supreme" data-texture-url="/static/img/veggie-supreme.png">
-                            <p>Veggie Supreme</p>
+                        <li class="topping" data-topping="veggie-supreme" data-texture-url="/static/img/toppings/textures/veggie-supreme.png">
+                            <img src="/static/img/toppings/thumbnails/veggie-supreme.jpg">
+                            <div class="topping-info">
+                                <h3>Veggie Supreme</h3>
+                                <p>Bell pepper, Red onion, Black olives, Mushroom, Pea, Mozzarela cheese</p>
+                            </div>
                         </li>
 
-                        <li class="topping" data-topping="quattro-formaggi" data-texture-url="/static/img/quattro-formaggi.png">
-                            <p>Quattro Formaggi</p>
+                        <li class="topping" data-topping="quattro-formaggi" data-texture-url="/static/img/toppings/textures/quattro-formaggi.png">
+                            <img src="/static/img/toppings/thumbnails/quattro-formaggi.jpg">
+                            <div class="topping-info">
+                                <h3>Quattro Formaggi</h3>
+                                <p>Mozzarela cheese, Cheddar cheese, Feta cheese, Parmesan Cheese, Pizza sauce, Basil, Oregano</p>
+                            </div>
                         </li>
 
-                        <li class="topping" data-topping="sausage" data-texture-url="/static/img/sausage.png">
-                            <p>Sausage</p>
+                        <li class="topping" data-topping="sausage" data-texture-url="/static/img/toppings/textures/sausage.png">
+                            <img src="/static/img/toppings/thumbnails/sausage.jpg">
+                            <div class="topping-info">
+                                <h3>Sausage</h3>
+                                <p>Italian sausage, Mozzarela cheese, Pizza sauce, Bell pepper, Black olive</p>
+                            </div>
                         </li>
 
-                        <li class="topping" data-topping="mushrooms" data-texture-url="/static/img/mushrooms.png">
-                            <p>Mushrooms</p>
+                        <li class="topping" data-topping="mushrooms" data-texture-url="/static/img/toppings/textures/mushrooms.png">
+                            <img src="/static/img/toppings/thumbnails/mushrooms.jpg">
+                            <div class="topping-info">
+                                <h3>Mushrooms</h3>
+                                <p>Sliced mushrooms (shiitake and oyster), Mozzarela cheese, Pizza sauce, Herbs</p>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -73,6 +112,10 @@
             <div id="pizza-wrapper" class="picker-column">
                 <canvas id="pizza"></canvas>
             </div>
+        </div>
+
+        <div id="footer">
+            <button id="add-to-cart">Add to cart</button>
         </div>
     </div>
 

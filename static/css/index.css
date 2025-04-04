@@ -1,5 +1,20 @@
 body {
-    font-family: sans-serif;
+    font-family: 'Fira Sans', sans-serif;
+    --color-foreground: white;
+    --color-background: #efefef;
+
+    --color-primary: #ec5b22;
+    --color-primary-hover: #ffe1d5;
+
+    --color-button: #fff5e4;
+
+    --color-text-primary: black;
+    --color-text-secondary: #5f5f5e;
+
+    --color-wood: #fdd09d;
+
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
 }
 
 ul {
@@ -8,10 +23,17 @@ ul {
     margin: 0;
 }
 
+h2 {
+    font-size: 24pt;
+}
+
 #content {
-    background-color: lightcoral;
+    background: var(--color-foreground);
+    padding: 32px;
+    border-radius: 32px;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 32px auto;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 #pizza-picker {
@@ -22,6 +44,27 @@ ul {
 
 .picker-column {
     flex: 1;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+}
+
+#pizza-wrapper {
+    padding: 64px 0;
+    background-color: var(--color-wood);
+    border-top-left-radius: 50% 128px;
+    border-top-right-radius: 50% 128px;
+    border-bottom-left-radius: 64px;
+    border-bottom-right-radius: 64px;
+    background-image: url(/static/img/peel.jpg);
+    background-size: cover;
+    box-shadow:
+        rgba(0, 0, 0, 0.2) 0px 20px 30px,
+        0 24px 4px rgba(121, 72, 18, 0.2) inset,
+        0 12px 10px rgba(121, 72, 18, 0.2) inset;
 }
 
 #pizza[data-size="small"] {
@@ -47,6 +90,7 @@ ul {
     display: flex;
     flex-direction: row;
     column-gap: 32px;
+    justify-content: center;
 }
 
 #sizes li {
@@ -55,53 +99,136 @@ ul {
     height: 64px;
     align-content: center;
     text-align: center;
-    background-color: white;
     border-radius: 100%;
     user-select: none;
+    font-weight: bold;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    transition: box-shadow 0.2s ease, color 0.2s ease, background-color 0.2s ease;
     cursor: pointer;
 }
 
+#sizes li:hover {
+    background-color: var(--color-primary-hover);
+}
+
 #sizes li.selected {
-    background-color: lightgreen;
+    background-color: var(--color-primary);
+    color: var(--color-foreground);
+    box-shadow: none;
+}
+
+#pizza-size-description {
+    text-align: center;
 }
 
 #pizza-size-info {
-    list-style-type: initial;
-    padding-left: 16px;
     display: flex;
-    flex-direction: column;
-    row-gap: 4px;
+    flex-direction: row;
+    column-gap: 32px;
+    justify-content: center;
+}
+
+#pizza-size-info li {
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 8px;
+    box-shadow:
+        rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+        rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+#pizza-size-info li b {
+    font-size: 24pt;
+}
+
+/* giving them min-widths so they don't push the other text */
+
+#pizza-serving b {
+    min-width: 54px;
+}
+
+#pizza-topping b {
+    min-width: 24px;
 }
 
 /* -- toppings -- */
 
 #toppings {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px;
+    border-radius: 16px;
+    background-color: var(--color-background);
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    max-height: 325px;
+    overflow-y: scroll;
+    padding: 8px;
 }
 
 .topping {
+    border-radius: 8px;
     background-color: white;
-    padding: 8px 36px;
-    border-radius: 48px;
+    padding: 16px;
     user-select: none;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 16px;
+    transition: opacity 0.2s ease;
 }
 
 .topping.selected {
-    background-color: lightgreen;
+    background-color: var(--color-primary);
+    color: var(--color-foreground);
 }
 
 #toppings.maxed-out .topping:not(.selected) {
     pointer-events: none;
-    opacity: 0.7;
+    opacity: 0.6;
+}
+
+.topping img {
+    width: 64px;
+    border-radius: 100%;
+}
+
+.topping-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
+
+.topping-info h3, .topping-info p {
+    margin: 0;
 }
 
 
+.topping-info h3 {
+    font-family: 'Cookie';
+    font-size: 24pt;
+    font-weight: normal;
+}
 
-#form {
+.topping:not(.selected) .topping-info p {
+    color: var(--color-text-secondary);
+}
+
+#footer {
     display: flex;
-    flex-direction: column;
-    row-gap: 16px;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+#add-to-cart {
+    background-color: var(--color-primary);
+    font-size: 14pt;
+    padding: 12px 128px;
+    border-radius: 24px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
 }
