@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const pizzaElement = document.getElementById('pizza');
-    const pizza = new PizzaPicker(pizzaElement);
+    const pizza = new PizzaBuilder(pizzaElement);
 
     const SIZE_PREFERENCE_KEY = 'size';
     const SIZE_PREFERENCE_DEFAULT = 'medium';
