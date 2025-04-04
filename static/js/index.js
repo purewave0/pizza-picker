@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
             serving: 'Serves 1-2 people',
             maxFlavoursText: 'Single flavour',
             flavourPickerText: 'Choose a flavour:',
+            sliceGapWidth: 6,
+            textureSize: 450,
         },
         'medium': {
             slicesAmount: 6,
@@ -18,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
             serving: 'Serves 2-3 people',
             maxFlavoursText: 'Up to 2 flavours',
             flavourPickerText: 'Choose up to 2 flavours:',
+            sliceGapWidth: 5,
+            textureSize: 400,
         },
         'large': {
             slicesAmount: 8,
@@ -26,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
             serving: 'Serves 3-4 people',
             maxFlavoursText: 'Up to 2 flavours',
             flavourPickerText: 'Choose up to 2 flavours:',
+            sliceGapWidth: 4,
+            textureSize: 350,
         },
         'extra-large': {
             slicesAmount: 12,
@@ -34,11 +40,14 @@ document.addEventListener('DOMContentLoaded', () => {
             serving: 'Serves 4-6 people',
             maxFlavoursText: 'Up to 3 flavours',
             flavourPickerText: 'Choose up to 3 flavours:',
+            sliceGapWidth: 4,
+            textureSize: 300,
         },
     };
 
     const sizesParent = document.getElementById('sizes');
     let currentlySelectedSize = null;
+    let currentTextureSize = null;
     const flavoursParent = document.getElementById('flavours');
     let currentlySelectedFlavours = [];
     let maxPizzaFlavours = null;
@@ -69,11 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         currentlySelectedFlavours = [];
         flavoursParent.classList.remove('maxed-out');
-        updatePizzaFlavours([]);
+        updatePizzaTextures([]);
 
         flavourPickerText.textContent = sizeInfo.flavourPickerText;
 
+
         pizza.setSlicesAmount(sizeInfo.slicesAmount)
+        currentTextureSize = sizeInfo.textureSize;
+        pizzaElement.dataset.size = size;
+        pizza.setSliceGapWidth(sizeInfo.sliceGapWidth);
     }
 
     for (const size of sizesParent.children) {
@@ -95,33 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const pizzaFlavoursInfo = {
-            // TODO
-        'pepperoni': {
-        },
-        'buffalo-chicken':{
-        },
-        'margherita': {
-        },
-        'cheese': {
-        },
-        'veggie-supreme': {
-        },
-        'quattro-formaggi': {
-        },
-        'sausage': {
-        },
-        'mushrooms': {
-        },
-    };
 
-    function updatePizzaFlavours(flavours) {
-        if (flavours.length === 0) {
-            pizza.setFlavours(null);
+    async function updatePizzaTextures(textureUrls) {
+        if (textureUrls.length === 0) {
+            pizza.setFlavourTextures(null, 0);
             return;
         }
 
-        pizza.setFlavours(flavours);
+        pizza.setFlavourTextures(textureUrls, currentTextureSize);
     }
 
     for (const flavour of flavoursParent.children) {
@@ -135,8 +129,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // in case it was maxed out before
                 flavoursParent.classList.remove('maxed-out');
 
-                updatePizzaFlavours(
-                    currentlySelectedFlavours.map(f => f.dataset.color)
+                updatePizzaTextures(
+                    currentlySelectedFlavours.map(f => f.dataset.textureUrl)
                 );
                 return;
             }
@@ -164,10 +158,14 @@ document.addEventListener('DOMContentLoaded', () => {
             currentlySelectedFlavours.push(flavour);
             flavour.classList.add('selected');
 
-            updatePizzaFlavours(currentlySelectedFlavours.map(f => f.dataset.color));
+            updatePizzaTextures(
+                currentlySelectedFlavours.map(f => f.dataset.textureUrl)
+            );
+
         });
     }
 
+
     updatePizzaBySize(currentlySelectedSize.dataset.size);
-    updatePizzaFlavours([]);
+    updatePizzaTextures([]);
 });

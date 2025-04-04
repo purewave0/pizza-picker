@@ -24,6 +24,22 @@ ul {
     flex: 1;
 }
 
+#pizza[data-size="small"] {
+    padding: 64px;
+}
+
+#pizza[data-size="medium"] {
+    padding: 32px;
+}
+
+#pizza[data-size="large"] {
+    padding: 16px;
+}
+
+#pizza[data-size="extra-large"] {
+    padding: 0;
+}
+
 
 /* -- sizes -- */
 
