@@ -52,6 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
     pizzaMaxToppingsValue = document.getElementById('pizza-topping-value');
     toppingPickerText = document.getElementById('topping-text');
 
+    /**
+     * Update the interface (the max. amount of toppings, texts, the pizza itself,
+     * etc.) according to the given pizza size.
+     *
+     * Both the selections in the toppings list and the topping textures displayed on
+     * the pizza will be reset.
+     *
+     * @param {string} size The pizza size, according to the selected size's `data-size`
+     *     attribute.
+     */
     function updatePizzaBySize(size) {
         const sizeInfo = pizzaSizesInfo[size];
 
@@ -85,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pizza.setSliceGapWidth(sizeInfo.sliceGapWidth);
     }
 
+    // store/retrieve size preferences
     let sizePreference = localStorage.getItem(SIZE_PREFERENCE_KEY);
     if (!sizePreference) {
         localStorage.setItem(SIZE_PREFERENCE_KEY, SIZE_PREFERENCE_DEFAULT);
@@ -115,6 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    /**
+     * Set the pizza's topping texture(s). Their size will follow the current pizza
+     * size's texture size.
+     *
+     * @param {Array<string>} textureUrls The array of texture URLs. If empty, the
+     *     whole pizza's background will be set to a default color.
+     */
     async function updatePizzaTextures(textureUrls) {
         if (textureUrls.length === 0) {
             pizza.setToppingTextures(null, 0);
@@ -174,6 +192,17 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePizzaBySize(currentlySelectedSize.dataset.size);
     updatePizzaTextures([]);
 
+    /**
+     * Return the full order. The size and at least 1 topping must be selected before
+     * calling this.
+     *
+     * @return {Object} The order, with the following fields:
+     *
+     * - `size` {string}: the pizza's size, according to the selected size's data-size
+     *     attribute.
+     * - `toppings` {Array<string>}: an array with each topping's name, according to
+     *     the selected topping's data-topping attribute.
+     */
     function getFullOrder() {
         return {
             size: currentlySelectedSize.dataset.size,
@@ -191,6 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         addToCardButton.setCustomValidity('');
+        // TODO: proper message popup
         const overview = getFullOrder();
         console.log(overview);
         alert(JSON.stringify(overview));
