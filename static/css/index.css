@@ -67,6 +67,10 @@ h2 {
         0 12px 10px rgba(121, 72, 18, 0.2) inset;
 }
 
+#pizza {
+    transition: padding 0.15s ease;
+}
+
 #pizza[data-size="small"] {
     padding: 64px;
 }
