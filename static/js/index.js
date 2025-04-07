@@ -210,6 +210,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+
+    const jsonOrderOutput = document.getElementById('order-json');
+    const JSON_INDENTATION = 4;
+
+    /**
+     * Show the Order modal, which displays a pretty-printed JSON of the user's order,
+     * along with some GitHub links.
+     *
+     * @param {Object} order The order. See @{link getFullOrder}.
+     */
+    function showOrderModal(order) {
+        const stringifiedOrder = JSON.stringify(
+            order, null, JSON_INDENTATION
+        );
+        // extremely basic "highlighting"; just the keys
+        const highlightedOrder = stringifiedOrder
+            .replace('"size"', '<span class="order-key">"size"</span>')
+            .replace('"toppings"', '<span class="order-key">"toppings"</span>')
+
+        jsonOrderOutput.innerHTML = highlightedOrder;
+        MicroModal.show('modal-order');
+    }
+
     const addToCardButton = document.getElementById('add-to-cart');
     addToCardButton.addEventListener('click', () => {
         const hasSelectedTopping = currentlySelectedToppings.length !== 0;
@@ -220,9 +243,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         addToCardButton.setCustomValidity('');
-        // TODO: proper message popup
-        const overview = getFullOrder();
-        console.log(overview);
-        alert(JSON.stringify(overview));
+        const order = getFullOrder();
+        showOrderModal(order);
+
     });
 });

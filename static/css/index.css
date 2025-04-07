@@ -23,6 +23,10 @@ ul {
     margin: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 h2 {
     font-size: 24pt;
 }
@@ -235,4 +239,98 @@ h2 {
     font-weight: bold;
     border: none;
     cursor: pointer;
+}
+
+/* -- order modal -- */
+
+#modal-order-content {
+    margin-bottom: 0;
+}
+
+#order-json {
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 16pt;
+    /* simulate a terminal */
+    background-color: #1c1d2b;
+    color: white;
+}
+
+.order-key {
+    font-weight: bold;
+}
+
+#pizza-separator {
+    fill: var(--color-primary);
+    width: 24px;
+    height: 24px;
+    display: block;
+    margin: 0 auto;
+}
+
+#github-links {
+    display: flex;
+    flex-direction: row;
+    column-gap: 32px;
+}
+
+.link {
+    display: flex;
+    flex-direction: row;
+    column-gap: 24px;
+    align-items: center;
+    border-radius: 8px;
+    flex: 1;
+    padding: 8px 24px;
+}
+
+.link-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    flex: 1;
+    text-align: center;
+}
+
+.link-info h2, .link-info p {
+    margin: 0;
+}
+
+.link-info h2 {
+    font-size: 14pt;
+}
+
+.link-info p {
+    font-size: 11pt;
+    opacity: 0.8; /* to work as secondary color */
+}
+
+.link-icon-wrapper {
+    align-content: center;
+    text-align: right;
+}
+
+/* -- project link -- */
+
+#link-project {
+    background-color: black;
+    color: white;
+}
+
+/* -- profile link -- */
+
+#link-profile {
+    background-color: #1e1f38;
+    color: white;
+}
+
+#link-profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+}
+
+#link-profile #profile-name {
+    font-family: monospace;
+    color: #7dff7d;
 }

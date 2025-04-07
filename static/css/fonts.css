@@ -1,3 +1,5 @@
+/* -- cookie: for fancy text -- */
+
 @font-face {
   font-family: 'Cookie';
   font-style: normal;
@@ -5,6 +7,9 @@
   font-display: swap;
   src: url(../fonts/Cookie.woff2) format('woff2');
 }
+
+
+/* -- fira sans: general -- */
 
 @font-face {
   font-family: 'Fira Sans';
