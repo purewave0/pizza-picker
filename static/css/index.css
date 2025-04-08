@@ -6,10 +6,14 @@ body {
     --color-primary: #ec5b22;
     --color-primary-hover: #ffe1d5;
 
+    --color-special: #ec2222;
+    --color-special-hover: #ec222233;
+
     --color-button: #fff5e4;
 
     --color-text-primary: black;
     --color-text-secondary: #5f5f5e;
+
 
     --color-wood: #fdd09d;
 
@@ -72,7 +76,11 @@ h2 {
 }
 
 #pizza {
-    transition: padding 0.15s ease;
+    transition: padding 0.15s ease, scale 0.15s ease;
+}
+
+#pizza[data-size="mini"] {
+    padding: 160px;
 }
 
 #pizza[data-size="small"] {
@@ -89,6 +97,11 @@ h2 {
 
 #pizza[data-size="extra-large"] {
     padding: 0;
+}
+
+#pizza[data-size="mega"] {
+    /* TODO change something else instead of the scale? */
+    scale: 1.1;
 }
 
 
@@ -123,6 +136,56 @@ h2 {
     background-color: var(--color-primary);
     color: var(--color-foreground);
     box-shadow: none;
+}
+
+/* -- easter egg -- */
+
+body:not(.easter-egg-enabled) #sizes li.easter-egg,
+body:not(.easter-egg-enabled) #pizza-separators svg.easter-egg {
+    display: none;
+}
+
+#sizes li.easter-egg {
+    animation:
+        wobble 0.8s ease 0s 1 normal both,
+        fade 1s ease-out;
+}
+
+#sizes li.easter-egg:hover {
+    background-color: var(--color-special-hover);
+}
+
+#sizes li.easter-egg.selected {
+    background-color: var(--color-special);
+}
+
+@keyframes wobble {
+  0%,
+  100% {
+    transform: translateX(0%);
+    transform-origin: 50% 50%;
+  }
+  15% {
+    transform: translateX(-30px) rotate(-6deg);
+  }
+  30% {
+    transform: translateX(15px) rotate(6deg);
+  }
+  45% {
+    transform: translateX(-15px) rotate(-3.6deg);
+  }
+  60% {
+    transform: translateX(9px) rotate(2.4deg);
+  }
+  75% {
+    transform: translateX(-6px) rotate(-1.2deg);
+  }
+}
+
+
+@keyframes fade {
+    0%   { opacity: 0; }
+    100% { opacity: 100%; }
 }
 
 #pizza-size-description {
@@ -260,12 +323,17 @@ h2 {
     font-weight: bold;
 }
 
-#pizza-separator {
+#pizza-separators {
+    display: flex;
+    flex-direction: row;
+    column-gap: 16px;
+    justify-content: center;
+}
+
+#pizza-separators svg {
     fill: var(--color-primary);
     width: 24px;
     height: 24px;
-    display: block;
-    margin: 0 auto;
 }
 
 #github-links {

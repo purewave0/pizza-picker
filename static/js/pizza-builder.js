@@ -10,7 +10,7 @@ class PizzaBuilder {
     #data;
     #slicesAmount;
 
-    static #COLOR_NO_FLAVOUR_SELECTED = 'rgba(127, 127, 127, 0.7)';
+    static #PLACEHOLDER_SLICE_COLOR = 'rgba(127, 127, 127, 0.7)';
 
     /**
      * @param {Node} target The target element. Must be a Canvas.
@@ -89,7 +89,7 @@ class PizzaBuilder {
      * topping is distributed evenly across the number of slices.
      *
      * @param {?Array<string>} textureUrls The array of texture URLs. If null, the whole
-     *     pizza's background will be set to a default color.
+     *     pizza's background will be set to a placeholder color.
      * @param {number} textureSize The size, in pixels, for the texture's width and
      *     height.
      */
@@ -97,24 +97,37 @@ class PizzaBuilder {
         if (textureUrls === null) {
             this.#data.datasets[0].backgroundColor =
                 new Array(this.#slicesAmount)
-                .fill(PizzaBuilder.#COLOR_NO_FLAVOUR_SELECTED);
+                .fill(PizzaBuilder.#PLACEHOLDER_SLICE_COLOR);
             this.#chart.update();
             return;
         }
 
-        if (this.#slicesAmount%textureUrls.length !== 0) {
-            throw new Error(
-                'amount of slices must be a multiple of the amount of textures'
-            );
+        // cloning as we may need to pad it if topping distribution is unequal
+        const urls = textureUrls.slice();
+
+        if ((this.#slicesAmount % urls.length) !== 0) {
+            // unequal topping distribution. pad with null, so there'll be 1 topping per
+            // slice, and the remaining (null) slices will be placeholders.
+            const remainingAmount = this.#slicesAmount - urls.length;
+            for (let i=0; i<remainingAmount; i++) {
+                urls.push(null);
+            }
         }
 
         this.#data.datasets[0].backgroundColor = [];
 
         let textureUpdatePromises = [];
 
-        const slicesPerTopping = this.#slicesAmount / textureUrls.length;
-        for (const textureUrl of textureUrls) {
+        const slicesPerTopping = this.#slicesAmount / urls.length;
+        for (const textureUrl of urls) {
             for (let j=0; j<slicesPerTopping; j++) {
+                if (textureUrl === null) {
+                    this.#data.datasets[0].backgroundColor.push(
+                        PizzaBuilder.#PLACEHOLDER_SLICE_COLOR
+                    );
+                    continue;
+                }
+
                 const promise = PizzaBuilder.#createCanvasPatternFromImageUrl(
                     textureUrl, textureSize
                 ).then((canvasPattern) => {

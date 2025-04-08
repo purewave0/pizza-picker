@@ -6,6 +6,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const SIZE_PREFERENCE_DEFAULT = 'medium';
 
     const pizzaSizesInfo = {
+        'mini': {
+            slicesAmount: 8,
+            maxToppings: 8,
+            description: 'Tiny enough to share <i>(you might not want to!)</i>',
+            serving: '~½',
+            sliceGapWidth: 8,
+            textureSize: 650,
+            isEasterEgg: true,
+        },
         'small': {
             slicesAmount: 4,
             maxToppings: 1,
@@ -38,6 +47,15 @@ document.addEventListener('DOMContentLoaded', () => {
             sliceGapWidth: 4,
             textureSize: 300,
         },
+        'mega': {
+            slicesAmount: 24,
+            maxToppings: 8,
+            description: '<b>M</b>assive <b>E</b>xtra-<b>G</b>reat <b>A</b>ppetite - you\'ll need to call for backup.',
+            serving: '10+',
+            sliceGapWidth: 2,
+            textureSize: 175,
+            isEasterEgg: true,
+        }
     };
 
     const sizesParent = document.getElementById('sizes');
@@ -65,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function updatePizzaBySize(size) {
         const sizeInfo = pizzaSizesInfo[size];
 
-        pizzaSizeDescription.textContent = sizeInfo.description;
+        pizzaSizeDescription.innerHTML = sizeInfo.description;
 
         pizzaServingValue.textContent = sizeInfo.serving;
 
@@ -97,7 +115,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // store/retrieve size preferences
     let sizePreference = localStorage.getItem(SIZE_PREFERENCE_KEY);
-    if (!sizePreference) {
+    if (
+        !sizePreference
+        || pizzaSizesInfo[sizePreference].isEasterEgg
+    ) {
+        // either first access, or had selected a secret size before (which is hidden
+        // now). fall back to the default size
         localStorage.setItem(SIZE_PREFERENCE_KEY, SIZE_PREFERENCE_DEFAULT);
         sizePreference = SIZE_PREFERENCE_DEFAULT;
     }
@@ -189,6 +212,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function enableEasterEgg() {
+        document.body.classList.add('easter-egg-enabled');
+    }
+
+    const easterEgg = {
+        lastClickTime: 0,
+        clickCount: 0,
+        // max. milliseconds between clicks to count towards enabling the easter egg
+        MAXIMUM_CLICK_INTERVAL: 700,
+        // min. amount of clicks (obeying the interval above) to enable the easter egg
+        CLICK_THRESHOLD: 5,
+    };
+
+    function easterEggClickHandler() {
+        const now = new Date();
+
+        const clickedWithinInterval =
+            (now - easterEgg.lastClickTime) <= easterEgg.MAXIMUM_CLICK_INTERVAL;
+        easterEgg.lastClickTime = now;
+
+        if (!clickedWithinInterval) {
+            // user took too long between clicks. reset count
+            easterEgg.clickCount = 1;
+            return;
+        }
+
+        ++easterEgg.clickCount;
+        if (easterEgg.clickCount === easterEgg.CLICK_THRESHOLD) {
+            enableEasterEgg();
+            pizzaElement.removeEventListener('click', easterEggClickHandler);
+        }
+    }
+
+    pizzaElement.addEventListener('click', easterEggClickHandler);
+
     updatePizzaBySize(currentlySelectedSize.dataset.size);
     updatePizzaTextures([]);
 
@@ -242,9 +300,24 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const currentSizeInfo = pizzaSizesInfo[currentlySelectedSize.dataset.size];
+        // the amount of toppings selected must be a divisor of the number of slices.
+        // for example, if there are 8 slices, it only supports 1, 2, 4 or 8 toppings
+        // (all divisors of 8). so if a user were to choose 5 toppings, they couldn't
+        // be evenly divided among 8 slices.
+        const isDistributionUneven =
+            (currentSizeInfo.slicesAmount % currentlySelectedToppings.length) !== 0;
+        if (isDistributionUneven) {
+            addToCardButton.setCustomValidity(
+                'Please select a number of toppings that can be evenly divided among'
+                + ` ${currentSizeInfo.slicesAmount} slices.`
+            );
+            addToCardButton.reportValidity();
+            return;
+        }
+
         addToCardButton.setCustomValidity('');
         const order = getFullOrder();
         showOrderModal(order);
-
     });
 });
