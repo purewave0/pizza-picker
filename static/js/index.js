@@ -208,7 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
             updatePizzaTextures(
                 currentlySelectedToppings.map(f => f.dataset.textureUrl)
             );
-
         });
     }
 
@@ -223,6 +222,8 @@ document.addEventListener('DOMContentLoaded', () => {
         MAXIMUM_CLICK_INTERVAL: 700,
         // min. amount of clicks (obeying the interval above) to enable the easter egg
         CLICK_THRESHOLD: 5,
+        hint: document.getElementById('hint-easter-egg'),
+        HINT_DURATION: 5_000,
     };
 
     function easterEggClickHandler() {
@@ -243,6 +244,21 @@ document.addEventListener('DOMContentLoaded', () => {
             enableEasterEgg();
             pizzaElement.removeEventListener('click', easterEggClickHandler);
         }
+    }
+
+
+    /**
+     * Show for @{link easterEgg.HINT_DURATION} milliseconds a hint about how to enable
+     * the easter egg.
+     *
+     * Since this hint is linked to the Order modal, the modal must be open for the hint
+     * to be displayed.
+     */
+    function hintAboutEasterEgg() {
+        easterEgg.hint.classList.add('show');
+        setTimeout(() => {
+            easterEgg.hint.classList.remove('show');
+        }, easterEgg.HINT_DURATION);
     }
 
     pizzaElement.addEventListener('click', easterEggClickHandler);
@@ -267,7 +283,6 @@ document.addEventListener('DOMContentLoaded', () => {
             toppings: currentlySelectedToppings.map(topping => topping.dataset.topping),
         }
     }
-
 
     const jsonOrderOutput = document.getElementById('order-json');
     const JSON_INDENTATION = 4;
@@ -319,5 +334,12 @@ document.addEventListener('DOMContentLoaded', () => {
         addToCardButton.setCustomValidity('');
         const order = getFullOrder();
         showOrderModal(order);
+
+        const hasEnabledEasterEgg =
+            document.body.classList.contains('easter-egg-enabled')
+        if (!hasEnabledEasterEgg) {
+            // wait a little bit (so the user has time to read the modal's contents)
+            setTimeout(hintAboutEasterEgg, 4_000);
+        }
     });
 });
