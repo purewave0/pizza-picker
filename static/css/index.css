@@ -340,8 +340,13 @@ body:not(.easter-egg-enabled) #pizza-separators svg.easter-egg {
     color: white;
 }
 
-.order-key {
+.order-key, .order-secret-size {
     font-weight: bold;
+}
+
+.order-secret-size {
+    color: var(--color-special);
+    text-shadow: 0 0 16px var(--color-special);
 }
 
 #pizza-separators {

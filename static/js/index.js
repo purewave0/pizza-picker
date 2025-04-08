@@ -297,10 +297,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const stringifiedOrder = JSON.stringify(
             order, null, JSON_INDENTATION
         );
-        // extremely basic "highlighting"; just the keys
-        const highlightedOrder = stringifiedOrder
+
+        // extremely basic highlighting; just the keys
+        let highlightedOrder = stringifiedOrder
             .replace('"size"', '<span class="order-key">"size"</span>')
             .replace('"toppings"', '<span class="order-key">"toppings"</span>')
+
+        // also highlight the size if it is a secret one
+        const shouldHighlightSizeName = pizzaSizesInfo[order.size].isEasterEgg
+        if (shouldHighlightSizeName) {
+            highlightedOrder = highlightedOrder.replace(
+                `"${order.size}"`,
+                `<span class="order-secret-size">"${order.size}"</span>`
+            );
+        }
 
         jsonOrderOutput.innerHTML = highlightedOrder;
         MicroModal.show('modal-order');
