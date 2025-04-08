@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'Tiny enough to share <i>(you might not want to!)</i>',
             serving: '~½',
             sliceGapWidth: 8,
-            textureSize: 650,
+            textureSize: 700,
             isEasterEgg: true,
         },
         'small': {
