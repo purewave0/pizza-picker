@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
             maxToppings: 8,
             description: 'Tiny enough to share <i>(you might not want to!)</i>',
             serving: '~½',
-            sliceGapWidth: 8,
-            textureSize: 700,
+            sliceGapWidth: 12,
+            textureSize: 800,
             isEasterEgg: true,
         },
         'small': {
@@ -20,15 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
             maxToppings: 1,
             description: 'Just the right size for a solo pizza night.',
             serving: '1-2',
-            sliceGapWidth: 6,
-            textureSize: 450,
+            sliceGapWidth: 8,
+            textureSize: 500,
         },
         'medium': {
             slicesAmount: 6,
             maxToppings: 2,
             description: 'Ideal for sharing with friends.',
             serving: '2-3',
-            sliceGapWidth: 5,
+            sliceGapWidth: 6,
             textureSize: 400,
         },
         'large': {
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             maxToppings: 2,
             description: 'Perfect for gatherings and satisfying appetites.',
             serving: '3-4',
-            sliceGapWidth: 4,
+            sliceGapWidth: 5,
             textureSize: 350,
         },
         'extra-large': {

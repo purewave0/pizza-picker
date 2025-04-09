@@ -82,27 +82,26 @@ h2 {
 }
 
 #pizza[data-size="mini"] {
-    padding: 160px;
+    scale: 0.3;
 }
 
 #pizza[data-size="small"] {
-    padding: 64px;
+    scale: 0.5;
 }
 
 #pizza[data-size="medium"] {
-    padding: 32px;
+    scale: 0.65;
 }
 
 #pizza[data-size="large"] {
-    padding: 16px;
+    scale: 0.8;
 }
 
 #pizza[data-size="extra-large"] {
-    padding: 0;
+    scale: 1;
 }
 
 #pizza[data-size="mega"] {
-    /* TODO change something else instead of the scale? */
     scale: 1.1;
 }
 
