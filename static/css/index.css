@@ -247,6 +247,22 @@ body:not(.easter-egg-enabled) #pizza-separators svg.easter-egg {
 
 /* -- toppings -- */
 
+#topping-start {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 16px 0;
+}
+
+#clear-toppings {
+    background-color: transparent;
+    border: none;
+    color: var(--color-primary);
+    font-size: 12pt;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
 #toppings {
     border-radius: 16px;
     background-color: var(--color-background);

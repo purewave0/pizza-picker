@@ -71,6 +71,21 @@ document.addEventListener('DOMContentLoaded', () => {
     toppingPickerText = document.getElementById('topping-text');
 
     /**
+     * Clear all selected toppings; will also clear the PizzaBuilder's textures.
+     */
+    function clearToppings() {
+        for (const topping of currentlySelectedToppings) {
+            topping.classList.remove('selected');
+        }
+        currentlySelectedToppings = [];
+        toppingsParent.classList.remove('maxed-out');
+        updatePizzaTextures([]);
+    }
+
+    const clearToppingsButton = document.getElementById('clear-toppings');
+    clearToppingsButton.addEventListener('click', clearToppings);
+
+    /**
      * Update the interface (the max. amount of toppings, texts, the pizza itself,
      * etc.) according to the given pizza size.
      *
@@ -99,13 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         toppingPickerText.textContent = toppingText;
 
-        // reset toppings
-        for (const topping of currentlySelectedToppings) {
-            topping.classList.remove('selected');
-        }
-        currentlySelectedToppings = [];
-        toppingsParent.classList.remove('maxed-out');
-        updatePizzaTextures([]);
+        clearToppings();
 
         pizza.setSlicesAmount(sizeInfo.slicesAmount)
         currentTextureSize = sizeInfo.textureSize;
