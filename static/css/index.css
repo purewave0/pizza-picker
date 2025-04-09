@@ -258,6 +258,7 @@ body:not(.easter-egg-enabled) #pizza-separators svg.easter-egg {
     background-color: transparent;
     border: none;
     color: var(--color-primary);
+    font-weight: bold;
     font-size: 12pt;
     cursor: pointer;
     padding: 0 8px;
