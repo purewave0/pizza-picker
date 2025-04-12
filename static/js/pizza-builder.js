@@ -88,6 +88,9 @@ class PizzaBuilder {
      * of slices must be a multiple of the amount of textures. This ensures that each
      * topping is distributed evenly across the number of slices.
      *
+     * While textures are loading, the `loading-pizza-textures` class will be appended
+     * to the document body.
+     *
      * @param {?Array<string>} textureUrls The array of texture URLs. If null, the whole
      *     pizza's background will be set to a placeholder color.
      * @param {number} textureSize The size, in pixels, for the texture's width and
@@ -118,6 +121,7 @@ class PizzaBuilder {
 
         let textureUpdatePromises = [];
 
+        document.body.classList.add('loading-pizza-textures');
         const slicesPerTopping = this.#slicesAmount / urls.length;
         for (const textureUrl of urls) {
             for (let j=0; j<slicesPerTopping; j++) {
@@ -141,6 +145,7 @@ class PizzaBuilder {
         // update once all textures load
         Promise.all(textureUpdatePromises).then(() => {
             this.#chart.update();
+            document.body.classList.remove('loading-pizza-textures');
         });
     }
 }
