@@ -10,6 +10,7 @@ An interactive and intuitive pizza picker.
 - Preview your pizza in real time
 - See final order as JSON
 - 8 toppings to choose from — and very easy to add more
+- Responsive
 - Includes an easter egg<sup>[[1]](#easter-egg)</sup>
 
 

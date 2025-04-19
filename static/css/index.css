@@ -27,6 +27,8 @@ body {
 
     background-color: var(--color-background);
     color: var(--color-text-primary);
+    margin: 0;
+    padding: 0;
 }
 
 ul {
@@ -164,6 +166,7 @@ body:not(.loading-pizza-textures) #pizza-loader {
     font-size: 16pt;
     width: 64px;
     height: 64px;
+    flex-shrink: 0;
     align-content: center;
     text-align: center;
     border-radius: 100%;
@@ -432,11 +435,16 @@ body:not(.easter-egg-enabled) #pizza-separators svg.easter-egg {
 .link {
     display: flex;
     flex-direction: row;
-    column-gap: 24px;
     align-items: center;
     border-radius: 8px;
     flex: 1;
-    padding: 8px 24px;
+    padding: 12px 24px;
+}
+
+.link > img,
+.link > svg {
+    width: 64px;
+    height: 64px;
 }
 
 .link-info {
@@ -461,6 +469,7 @@ body:not(.easter-egg-enabled) #pizza-separators svg.easter-egg {
 }
 
 .link-icon-wrapper {
+    display: flex;
     align-content: center;
     text-align: right;
 }
@@ -480,8 +489,6 @@ body:not(.easter-egg-enabled) #pizza-separators svg.easter-egg {
 }
 
 #link-profile img {
-    width: 80px;
-    height: 80px;
     border-radius: 100%;
 }
 

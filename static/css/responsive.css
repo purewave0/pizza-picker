@@ -1,0 +1,163 @@
+@media only screen and (max-width: 600px) {
+    body {
+        font-size: 10pt;
+        --scale-pizza-small: 0.6;
+        --scale-pizza-medium: 0.75;
+        --scale-pizza-large: 0.9;
+        --scale-pizza-mega: 1.3;
+        background-color: var(--color-foreground);
+    }
+
+    /* make it fullscreen */
+    #content {
+        border-radius: 0;
+        margin: 0;
+        padding: 8px;
+        box-shadow: none;
+    }
+
+    #pizza-picker {
+        flex-direction: column-reverse;
+    }
+
+    /* -- pizza -- */
+
+    #pizza-wrapper {
+        /* horizontal version of it */
+        border-bottom-left-radius: 25% 128px;
+        border-top-left-radius: 25% 128px;
+        border-top-right-radius: 32px;
+        border-bottom-right-radius: 32px;
+        padding: 8px 0;
+        max-height: 180px;
+        box-shadow:
+            24px 0 4px rgba(121, 72, 18, 0.2) inset,
+            12px 0 10px rgba(121, 72, 18, 0.2) inset;
+    }
+
+    #pizza {
+        margin: auto;
+        position: relative;
+        /* properly vertically align it */
+        bottom: 5px;
+    }
+
+    #pizza-loader {
+        bottom: 4px;
+        width: 48px;
+        height: 48px;
+        border-width: 3px;
+    }
+
+
+    /* -- forms -- */
+
+    .form-field h2 {
+        display: none;
+    }
+
+    /* -- sizes -- */
+
+    #sizes {
+        margin-top: 24px;
+        column-gap: 16px;
+        transition: column-gap 0.2s ease;
+    }
+
+    body.easter-egg-enabled #sizes {
+        column-gap: 12px;
+    }
+
+    #sizes li {
+        width: 48px;
+        height: 48px;
+        font-size: 14pt;
+    }
+
+    #pizza-size-info li {
+        padding: 8px 12px;
+        column-gap: 4px;
+    }
+
+    #pizza-size-info li b {
+        font-size: 20pt;
+    }
+
+    #pizza-serving b {
+        min-width: 46px;
+    }
+
+    #pizza-topping b {
+        min-width: 20px;
+    }
+
+    /* -- toppings -- */
+
+    #toppings {
+        flex-direction: row;
+        max-height: initial;
+        column-gap: 8px;
+    }
+
+    .topping {
+        padding: 8px;
+        flex-direction: column;
+        flex-shrink: 0;
+        width: 160px;
+        text-align: center;
+    }
+
+    .topping img {
+        width: 48px;
+    }
+
+    .topping-info h3 {
+        font-size: 18pt;
+    }
+
+    .topping-info p {
+        font-size: 8pt;
+    }
+
+    #add-to-cart {
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+    }
+
+    /* -- modal -- */
+
+    #order-json {
+        font-size: 11pt;
+    }
+
+    #pizza-separators svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    #github-links {
+        row-gap: 16px;
+        flex-direction: column;
+    }
+
+    .link > img,
+    .link > svg {
+        width: 48px;
+        height: 48px;
+    }
+
+    .link-info h2 {
+        font-size: 13pt;
+    }
+
+    .link-info p {
+        font-size: 10pt;
+    }
+
+    #hint-easter-egg {
+        right: 8px;
+        bottom: 8px;
+        left: 8px;
+    }
+}

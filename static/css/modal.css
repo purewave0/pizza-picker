@@ -19,6 +19,8 @@
 .modal__container {
   background-color: var(--color-foreground);
   padding: 32px;
+  margin: 0 8px;
+  width: 100%;
   max-width: 768px;
   max-height: 100vh;
   border-radius: 16px;

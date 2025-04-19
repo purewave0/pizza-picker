@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'mega': {
             slicesAmount: 24,
             maxToppings: 8,
-            description: '<b>M</b>assive <b>E</b>xtra-<b>G</b>reat <b>A</b>ppetite - you\'ll need to call for backup.',
+            description: '<b>M</b>assive <b>E</b>xtra-<b>G</b>reat <b>A</b>ppetite - you\'ll need backup.',
             serving: '10+',
             sliceGapWidth: 2,
             textureSize: 175,
@@ -69,6 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
     pizzaServingValue = document.getElementById('pizza-serving-value');
     pizzaMaxToppingsValue = document.getElementById('pizza-topping-value');
     toppingPickerText = document.getElementById('topping-text');
+
+    // when on mobile, we need thinner borders and smaller textures
+    const MOBILE_TEXTURE_SCALE = 0.3;
+    const MOBILE_SLICE_GAP_SCALE = 0.5;
 
     /**
      * Clear all selected toppings; will also clear the PizzaBuilder's textures.
@@ -117,9 +121,17 @@ document.addEventListener('DOMContentLoaded', () => {
         clearToppings();
 
         pizza.setSlicesAmount(sizeInfo.slicesAmount)
+
+        let sliceGapWidth = sizeInfo.sliceGapWidth;
         currentTextureSize = sizeInfo.textureSize;
+
+        const isMobile = matchMedia('(max-width: 600px)').matches;
+        if (isMobile) {
+            sliceGapWidth *= MOBILE_SLICE_GAP_SCALE;
+            currentTextureSize *= MOBILE_TEXTURE_SCALE;
+        }
         pizzaElement.dataset.size = size;
-        pizza.setSliceGapWidth(sizeInfo.sliceGapWidth);
+        pizza.setSliceGapWidth(sliceGapWidth);
     }
 
     // store/retrieve size preferences
