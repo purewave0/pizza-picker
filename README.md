@@ -4,6 +4,8 @@ An interactive and intuitive pizza picker.
 
 ![PizzaPicker screenshot](screenshot.png "Screenshot")
 
+[Try it out live!](https://purewave0.github.io/pizza-picker)
+
 - Choose your pizza's size
 - Choose your pizza's toppings
 - See info according to the selected size
